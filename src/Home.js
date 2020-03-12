@@ -6,27 +6,33 @@ const Wrapper = styled.div`
   background-color: red;
 `;
 
+const Anchor = styled.a`
+  color: blue;
+`;
+
 class Home extends React.Component {
   render() {
     return (
       <Wrapper>
-        <div className="Home-header">
-          <img src={logo} className="Home-logo" alt="logo" />
+        <div>
+          <img src={logo} alt="logo" />
           <h2>Welcome to Razzle</h2>
         </div>
-        <p className="Home-intro">
+        <p>
           To get started, edit <code>src/App.js</code> or{" "}
           <code>src/Home.js</code> and save to reload.
         </p>
-        <ul className="Home-resources">
+        <ul>
           <li>
-            <a href="https://github.com/jaredpalmer/razzle">Docs</a>
+            <Anchor href="https://github.com/jaredpalmer/razzle">Docs</Anchor>
           </li>
           <li>
-            <a href="https://github.com/jaredpalmer/razzle/issues">Issues</a>
+            <Anchor href="https://github.com/jaredpalmer/razzle/issues">
+              Issues
+            </Anchor>
           </li>
           <li>
-            <a href="https://palmer.chat">Community Slack</a>
+            <Anchor href="https://palmer.chat">Community Slack</Anchor>
           </li>
         </ul>
       </Wrapper>

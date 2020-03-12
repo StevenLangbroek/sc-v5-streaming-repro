@@ -4,6 +4,8 @@ import { StaticRouter } from "react-router-dom";
 import express from "express";
 import { renderToNodeStream } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
+import ofStream from "stream-to-promise";
+import Home from "./Home";
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -31,21 +33,16 @@ server
         <div id="root">`);
     const context = {};
     const render$ = sheet.interleaveWithNodeStream(
-      renderToNodeStream(
-        <StaticRouter context={context} location={req.url}>
-          <App />
-        </StaticRouter>
-      )
+      renderToNodeStream(<Home />)
     );
 
-    render$.pipe(res, { end: false });
-
-    render$.on("end", () => {
-      res.write(`</div>
-      </body>
-  </html>`);
-      res.end();
-    });
+    ofStream(render$)
+      .then(result => result.toString())
+      .then(html => {
+        console.log(html);
+        res.write(html);
+        res.end();
+      });
   });
 
 export default server;
